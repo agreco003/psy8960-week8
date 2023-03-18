@@ -50,5 +50,5 @@ I observed a correlation of `r meanCor$statistic`, which is not statistically si
 Finally, an export of the necessary data was created for the interactive shiny app found above. 
 ```{r, echo=TRUE, results='hide'} 
 select(week8_tbl, all_of(c("gender", "q1_q6_mean", "q7_q10_mean", "timeStart"))) %>%
-  saveRDS(file = "../shiny/shinyweek8/week8.dat")
+  saveRDS(file = "../shiny/shiny_week8/week8.dat")
 ```
