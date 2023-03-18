@@ -16,7 +16,12 @@ library(tidyverse)
 ```
 
 # **Data Import and Cleaning**
+Rationale comment not complete
 ```{r setup}
-week8_tbl <- read_csv(file ="../data/week3.csv")
-
+week8_tbl <- read_csv(file ="../data/week3.csv") %>%
+  mutate(condition = factor(condition, levels = c("A", "B", "C"), labels = c("Block A", "Block B", "Control")),
+         gender = factor(gender, levels = c("M", "F"), labels = c("Male", "Female")),
+         q5 = case_match(q5, 1 ~ 5, 2 ~ 4, 3 ~ 3, 4 ~ 2, 5 ~ 1),
+         timeStart = ymd_hms(timeStart),
+         timeSpent = as.numeric(difftime(timeEnd, timeStart, units = c("mins")))) 
 ```
