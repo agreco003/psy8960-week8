@@ -3,6 +3,7 @@ title: "PSY 8960 Week 8 Project"
 author: "Anthony Greco"
 date: "`r Sys.Date()`"
 output: html_document
+runtime: shiny
 ---
 
 # **Reproducible Image and Online Resources**
@@ -13,15 +14,28 @@ An interactive web app is available by [clicking this link instead.](link url)
 ```{r setup, echo = TRUE, results='hide'}
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 library(tidyverse)
+library(shiny)
 ```
 
 # **Data Import and Cleaning**
-Rationale comment not complete
+Data cleaned to recast condition and gender as factors, timestamps as POSIX, reverse code q5, and create mean values of q1:q6 and q7:q10. This makes the tibble easier to interpret, more consistent, and coded accurately for future analyses and visualizations. Past data cleaning efforts beyond this scope (dropping all cases that did not answer 1 on q6) were not included because they were noted in this project. 
 ```{r setup}
 week8_tbl <- read_csv(file ="../data/week3.csv") %>%
   mutate(condition = factor(condition, levels = c("A", "B", "C"), labels = c("Block A", "Block B", "Control")),
          gender = factor(gender, levels = c("M", "F"), labels = c("Male", "Female")),
          q5 = case_match(q5, 1 ~ 5, 2 ~ 4, 3 ~ 3, 4 ~ 2, 5 ~ 1),
          timeStart = ymd_hms(timeStart),
-         timeSpent = as.numeric(difftime(timeEnd, timeStart, units = c("mins")))) 
+         q1_q6_mean = rowMeans(across(q1:q6)),
+         q7_q10_mean = rowMeans(across(q7:q10))
+  )
+```
+
+# **Visualization**
+```{r echo = FALSE} 
+select(week8_tbl, q1:q6)
+
+ggplot(week8_tbl, aes(x = q1_q6_mean, y = q7_q10_mean)) +
+  geom_smooth(method = "lm", color = "purple", se = TRUE) +
+  geom_point()
+
 ```
