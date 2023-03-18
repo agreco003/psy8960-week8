@@ -44,11 +44,11 @@ The results of a correlation test can aide in the interpretation of those result
 meanCor <- cor.test(x = week8_tbl$q1_q6_mean, y = week8_tbl$q7_q10_mean)
 meanCor
 ```
-I observed a correlation of `r meanCor$statistic`, which is not statistically significant. This suggests no relationship between these variables.
+I observed a correlation of `r meanCor$estimate`, which is not statistically significant. This suggests no relationship between these variables.
 
 # **Data Export**
 Finally, an export of the necessary data was created for the interactive shiny app found above. 
 ```{r, echo=TRUE, results='hide'} 
 select(week8_tbl, all_of(c("gender", "q1_q6_mean", "q7_q10_mean", "timeStart"))) %>%
-  saveRDS(file = "../shiny/shiny_week8/week8.dat")
+  saveRDS(file = "../shiny/shiny_week8/week8.csv")
 ```

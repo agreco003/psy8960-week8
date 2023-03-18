@@ -1,14 +1,14 @@
-setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+library(tidyverse)
 library(shiny)
-week8_df <- read.table(file = "week8.dat")
+read_delim("../shiny/shiny_week8/week8.dat")
 
-# Define UI for application that draws a histogram
+# Define UI
 ui <- fluidPage(
   
 
 )
 
-# Define server logic required to draw a histogram
+# Define server logic
 server <- function(input, output) {
 
 }
