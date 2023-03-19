@@ -13,6 +13,7 @@ An interactive web app is available by [clicking this link instead.](https://agr
 ```{r, echo = TRUE, message = FALSE}
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 library(tidyverse)
+rmarkdown::render("../out/")
 ```
 
 # **Data Import and Cleaning**
