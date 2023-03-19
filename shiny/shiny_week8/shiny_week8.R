@@ -16,7 +16,7 @@ ui <- fluidPage(
 
 # Define server logic
 server <- function(input, output) {
-  week8_df = readRDS(file = "week8.rds")
+  week8_df = readRDS(file = "../shiny/shiny_week8/week8.rds")
   #plotGender <- reactive({input$gender} %>% case_when("All" ~ ".","Male" ~ "Male","Female" ~ "Female")
   #Alternate with 2 lines? #plotGender <- reactive({input$gender}) #plotGender()$gender %>% case_when("All" ~ ".","Male" ~ "Male","Female" ~ "Female")
   #broken, not finished #plotErrorbars <- reactive({case_when(input$SE== "Display Error Band" ~ 1, "Suppress Error Band" ~ 0)})
@@ -35,3 +35,4 @@ server <- function(input, output) {
 }
 # Run the application 
 shinyApp(ui = ui, server = server)
+#deployApp("../shiny/shiny_week8/week8.rds", appName = "shiny_week8", appTitle = "shiny_week8")
