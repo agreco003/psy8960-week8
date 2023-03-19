@@ -16,15 +16,15 @@ ui <- fluidPage(
 
 # Define server logic
 server <- function(input, output) {
-  week8_df = readRDS(file = "../shiny/shiny_week8/week8.rds")
-  #plotGender <- reactive({input$gender} %>% case_when("All" ~ ".","Male" ~ "Male","Female" ~ "Female")
+  week8_df = readRDS(file = "week8.rds")
+  #plotGender <- reactive({input$gender} %>% case_when("All" ~ .,"Male" ~ "Male","Female" ~ "Female")
   #Alternate with 2 lines? #plotGender <- reactive({input$gender}) #plotGender()$gender %>% case_when("All" ~ ".","Male" ~ "Male","Female" ~ "Female")
   #broken, not finished #plotErrorbars <- reactive({case_when(input$SE== "Display Error Band" ~ 1, "Suppress Error Band" ~ 0)})
   #broken, not finished #plotDate <- reactive({case_when(input$date=="Include"~ as.POSIXct(), "Exclude"~ as.POSIXct(2017-08-01))})
   
   plot_selection <- function(){
     week8_df %>%
-      filter(gender == plotGender) %>% #or maybe plotGender()$gender?
+      filter(gender == .) %>% #or maybe plotGender()$gender?
       filter(timeStart >= plotDate) %>%
       ggplot(aes(x = q1_q6_mean, y = q7_q10_mean)) +
       geom_smooth(method = "lm", color = "purple", se = plotErrorbars) +
