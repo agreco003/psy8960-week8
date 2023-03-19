@@ -19,9 +19,11 @@ ui <- fluidPage(
 # Define server logic
 server <- function(input, output) {
   plotGender <- reactive({
-    case_match(input$gender,"All" ~c(.),"Male" ~c("Male"),"Female" ~c("Female"))})
-  #plotErrorbars <- reactive({case_when(input$SE, "Display Error Band" ~ TRUE, "Suppress Error Band" ~ FALSE)})
-  #plotDate <- input$gender 
+    case_match(input$gender,
+               "All" ~c(.),"Male" ~c("Male"),"Female" ~c("Female"))})
+  plotErrorbars <- reactive({case_when(input$SE, "Display Error Band" ~ TRUE, "Suppress Error Band" ~ FALSE)})
+  plotDate <- reactive({case_when(input$date=="Include" ~as.POSIXct(0000)
+                                  "Exclude")})
   
   plot_selection <- function(){
     week8_df %>%

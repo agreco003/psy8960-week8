@@ -49,7 +49,6 @@ I observed a correlation of `r meanCor$estimate`, which is not statistically sig
 # **Data Export**
 Finally, an export of the necessary data was created for the interactive shiny app found above. 
 ```{r, echo=TRUE, results='hide'} 
-week8_df <- select(week8_tbl, all_of(c("gender", "q1_q6_mean", "q7_q10_mean", "timeStart"))) %>%
-  as.data.frame() %>%
-  saveRDS(file = "../shiny/shiny_week8/week8.csv")
+(week8_df <- select(week8_tbl, all_of(c("gender", "q1_q6_mean", "q7_q10_mean", "timeStart")))) %>%
+  write.csv(file = "../shiny/shiny_week8/week8.csv")
 ```
