@@ -1,7 +1,6 @@
 library(tidyverse)
 library(shiny)
-setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
-getwd()
+
 # Define UI
 ui <- fluidPage(
   titlePanel("Week8 Interactive App"),
