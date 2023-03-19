@@ -1,11 +1,14 @@
 library(tidyverse)
 library(shiny)
+#comment out working directory #setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 # Define UI
 ui <- fluidPage(
   titlePanel("Week8 Interactive App"),
+  #Create sidebar layout for options on the left, plot in the main panel on the right
   sidebarLayout(
     sidebarPanel(
+      #create 3 inputs, one for a gender filter, one for activating error bars (SE) and one for one for a date filter
       selectInput(inputId = "gender", label = "Gender of Participants", choices = list("All", "Male","Female"), selected = "All"),
       selectInput(inputId = "SE", label = "Error Band?", choices = list("Display Error Band", "Suppress Error Band"), selected = "Display Error Band"),
       selectInput(inputId = "date", label = "Include Participants before August 1, 2017?", choices = c(list("Include", "Exclude")), selected = "Include")
@@ -18,6 +21,7 @@ ui <- fluidPage(
 # Define server logic
 server <- function(input, output) {
   data_tbl <- readRDS("week8.rds")
+  #create a plot output
   output$plot <- renderPlot({
     #filter gender in the tibble to match a single gender input. Otherwise, do nothing to show all results. 
     if (input$gender == c("Male") | input$gender == c("Female")) {
@@ -44,3 +48,4 @@ server <- function(input, output) {
 
 # Run the application 
 shinyApp(ui = ui, server = server)
+# comment out deploy app #resconnect::deployapp
