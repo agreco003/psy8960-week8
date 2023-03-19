@@ -1,5 +1,6 @@
 library(tidyverse)
 library(shiny)
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 # Define UI
 ui <- fluidPage(
@@ -11,28 +12,34 @@ ui <- fluidPage(
       selectInput(inputId = "date", label = "Include Participants before August 1, 2017?", choices = c(list("Include", "Exclude")), selected = "Include")
     ),
     mainPanel(
-      plotly::plotlyOutput('plot'))
-  ))
+      plotOutput('plot'))
+  )
+)
 
 # Define server logic
 server <- function(input, output) {
-  week8_df = readRDS(file = "week8.rds")
-  #plotGender <- reactive({input$gender} %>% case_when("All" ~ as.logical("TRUE"),"Male" ~ "Male","Female" ~ "Female")
-  #Alternate with 2 lines? #plotGender <- reactive({input$gender}) #plotGender()$gender %>% case_when("All" ~ as.logical("TRUE"),"Male" ~ "Male","Female" ~ "Female")
-  #broken, not finished #plotErrorbars <- reactive({case_when(input$SE== "Display Error Band" ~ 1, "Suppress Error Band" ~ 0)})
-  #broken, not finished #plotDate <- reactive({case_when(input$date=="Include"~ as.POSIXct(), "Exclude"~ as.POSIXct(2017-08-01))})
-  
-  plot_selection <- function(){
-    week8_df %>%
-      filter(gender == TRUE) %>% #or maybe plotGender()$gender?
-      filter(timeStart >= plotDate) %>%
+  data_tbl <- readRDS("week8.rds")
+  output$plot <- renderPlot({
+    if (input$gender == c("Male") | input$gender == c("Female")) {
+      data_tbl <- data_tbl %>% filter(gender == input$gender)
+    } else {}
+    if (input$date == c("Exclude")) {
+      data_tbl <- data_tbl %>% filter(timeStart >= c("2017-08-01"))
+    } else {}
+    if (input$SE == c("Suppress Error Band")) {
+      data_tbl %>%
+        ggplot(aes(x = q1_q6_mean, y = q7_q10_mean)) +
+        geom_smooth(method = "lm", color = "purple", se = FALSE) +
+        geom_point()
+    } else {
+    data_tbl %>%
       ggplot(aes(x = q1_q6_mean, y = q7_q10_mean)) +
-      geom_smooth(method = "lm", color = "purple", se = plotErrorbars) +
+      geom_smooth(method = "lm", color = "purple", se = TRUE) +
       geom_point()
-  }
-  
-  output$plot <- plotly::renderPlotly(plot_selection())
+    }
+  })
 }
+
 # Run the application 
 shinyApp(ui = ui, server = server)
-#deployApp("../shiny/shiny_week8/week8.rds", appName = "shiny_week8", appTitle = "shiny_week8")
+rsconnect::deployApp("../shiny/shiny_week8/week8.rds", appName = "shiny_week8", appTitle = "shiny_week8")
