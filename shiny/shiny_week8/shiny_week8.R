@@ -1,7 +1,7 @@
 library(tidyverse)
 library(shiny)
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
-week8_df = read_csv(file = "week8.csv")
+week8_df = readRDS(file = "week8.rds")
 
 # Define UI
 ui <- fluidPage(
