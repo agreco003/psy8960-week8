@@ -1,7 +1,5 @@
 library(tidyverse)
 library(shiny)
-setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
-week8_df = readRDS(file = "week8.rds")
 
 # Define UI
 ui <- fluidPage(
@@ -18,6 +16,7 @@ ui <- fluidPage(
 
 # Define server logic
 server <- function(input, output) {
+  week8_df = readRDS(file = "week8.rds")
   #plotGender <- reactive({input$gender} %>% case_when("All" ~ ".","Male" ~ "Male","Female" ~ "Female")
   #Alternate with 2 lines? #plotGender <- reactive({input$gender}) #plotGender()$gender %>% case_when("All" ~ ".","Male" ~ "Male","Female" ~ "Female")
   #broken, not finished #plotErrorbars <- reactive({case_when(input$SE== "Display Error Band" ~ 1, "Suppress Error Band" ~ 0)})
