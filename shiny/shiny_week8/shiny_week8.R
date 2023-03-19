@@ -24,7 +24,7 @@ server <- function(input, output) {
   
   plot_selection <- function(){
     week8_df %>%
-      filter(gender == reactiveValuesToList(plotGender)) %>%
+      filter(gender == plotGender) %>%
       #filter(timeStart >= plotDate) %>%
       ggplot(aes(x = q1_q6_mean, y = q7_q10_mean)) +
       geom_smooth(method = "lm", color = "purple", se = TRUE) +
