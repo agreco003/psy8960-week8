@@ -28,7 +28,7 @@ week8_tbl <- read_csv(file ="../data/week3.csv") %>%
 ```
 
 # **Visualization**
-Below is a paginated table for variables Q1 - Q6, followed by a scatter plot that examinines the relationship between the mean values of Q1-Q6 and the mean values of Q7 - Q10.
+Below is a paginated table for variables Q1 - Q6, followed by a scatter plot that examines the relationship between the mean values of Q1-Q6 and the mean values of Q7 - Q10.
 ```{r echo = FALSE, message = FALSE} 
 select(week8_tbl, q1:q6) %>%
   DT::datatable()
