@@ -1,1 +1,1 @@
-install.packages(c("tidyverse", "shiny", "DT"))
+install.packages(c("tidyverse", "shiny", "DT", "rsconnect"))
