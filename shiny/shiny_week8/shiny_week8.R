@@ -18,17 +18,14 @@ ui <- fluidPage(
 
 # Define server logic
 server <- function(input, output) {
-  plotGender <- reactive({
-    case_match(input$gender,
-               "All" ~c(.),"Male" ~c("Male"),"Female" ~c("Female"))})
-  plotErrorbars <- reactive({case_when(input$SE, "Display Error Band" ~ TRUE, "Suppress Error Band" ~ FALSE)})
-  plotDate <- reactive({case_when(input$date=="Include" ~as.POSIXct(0000)
-                                  "Exclude")})
+  plotGender <- reactive({input$gender %>% case_match("All" ~as.list(.),"Male" ~as.list("Male"),"Female" ~as.list("Female"))})
+  #plotErrorbars <- reactive({case_when(input$SE, "Display Error Band" ~ TRUE, "Suppress Error Band" ~ FALSE)})
+  #plotDate <- reactive({case_when(input$date=="Include"~ as.POSIXct(0000-00-00), input$date=="Exclude"~ as.POSIXct(2017-08-01))})
   
   plot_selection <- function(){
     week8_df %>%
-      filter(gender == input$gender) %>%
-      filter(timeStart >= input$date) %>%
+      filter(gender == reactiveValuesToList(plotGender)) %>%
+      #filter(timeStart >= plotDate) %>%
       ggplot(aes(x = q1_q6_mean, y = q7_q10_mean)) +
       geom_smooth(method = "lm", color = "purple", se = TRUE) +
       geom_point()
