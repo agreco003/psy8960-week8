@@ -1,8 +1,14 @@
 ---
-title: "PSY 8960 Week 8 Project"
+title: "week 8"
 author: "Anthony Greco"
 date: "`r Sys.Date()`"
 output: html_document
+knit: (function(input, ...) {
+    rmarkdown::render(
+      input,
+      output_dir = "../out/"
+      )
+  })
 ---
 
 # **Reproducible Image and Online Resources**
@@ -13,7 +19,6 @@ An interactive web app is available by [clicking this link instead.](https://agr
 ```{r, echo = TRUE, message = FALSE}
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 library(tidyverse)
-rmarkdown::render("../out/")
 ```
 
 # **Data Import and Cleaning**
