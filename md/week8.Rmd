@@ -6,7 +6,7 @@ output: html_document
 ---
 
 # **Reproducible Image and Online Resources**
-An image of this project as of *`r Sys.Date()`* can be accessed by [clicking this link](link url).
+An image of this project as of *`r Sys.Date()`* can be accessed by [clicking this link](https://mybinder.org/v2/gh/agreco003/psy8960-week8/HEAD).
 An interactive web app is available by [clicking this link instead.](https://agreco003.shinyapps.io/shiny_week8/)
 
 # **Script Settings and Resources**
