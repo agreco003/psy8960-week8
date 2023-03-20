@@ -34,12 +34,12 @@ server <- function(input, output) {
     #Create a plot without error bands if "Suppress" is selected. Otherwise, build a plot with error bands.
     if (input$SE == c("Suppress Error Band")) {
       data_tbl %>%
-        ggplot(aes(x = q1_q6_mean, y = q7_q10_mean)) +
+        ggplot(aes(x = q1_q6_mean, y = q8_q10_mean)) +
         geom_smooth(method = "lm", color = "purple", se = FALSE) +
         geom_point()
     } else {
       data_tbl %>%
-        ggplot(aes(x = q1_q6_mean, y = q7_q10_mean)) +
+        ggplot(aes(x = q1_q6_mean, y = q8_q10_mean)) +
         geom_smooth(method = "lm", color = "purple", se = TRUE) +
         geom_point()
     }

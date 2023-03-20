@@ -12,7 +12,8 @@ knit: (function(input, ...) {
 ---
 
 # **Reproducible Image and Online Resources**
-An image of this project as of *`r Sys.Date()`* can be accessed by [clicking this link](https://mybinder.org/v2/gh/agreco003/psy8960-week8/HEAD?urlpath=rstudio).
+An image of this project as of *March 19, 2023* can be accessed by [clicking this link](https://mybinder.org/v2/gh/agreco003/psy8960-week8/HEAD?urlpath=rstudio).
+
 An interactive web app is available by [clicking this link instead.](https://agreco003.shinyapps.io/shiny_week8/)
 
 # **Script Settings and Resources**
@@ -27,19 +28,19 @@ Data cleaned to recast condition and gender as factors, timestamps as POSIX, rev
 week8_tbl <- read_csv(file ="../data/week3.csv") %>%
   mutate(condition = factor(condition, levels = c("A", "B", "C"), labels = c("Block A", "Block B", "Control")),
          gender = factor(gender, levels = c("M", "F"), labels = c("Male", "Female")),
-         q5 = case_match(q5, 1 ~ 5, 2 ~ 4, 3 ~ 3, 4 ~ 2, 5 ~ 1),
+         q5 = case_match(q5, 1 ~ 5, 2 ~ 4, 3 ~ 3, 4 ~ 2, 5 ~ 1), #or, = 6 - q5
          timeStart = ymd_hms(timeStart),
          q1_q6_mean = rowMeans(across(q1:q6)),
-         q7_q10_mean = rowMeans(across(q7:q10)))
+         q8_q10_mean = rowMeans(across(q8:q10)))
 ```
 
 # **Visualization**
-Below is a paginated table for variables Q1 - Q6, followed by a scatter plot that examines the relationship between the mean values of Q1-Q6 and the mean values of Q7 - Q10.
+Below is a paginated table for variables Q1 - Q6, followed by a scatter plot that examines the relationship between the mean values of Q1-Q6 and the mean values of Q8 - Q10.
 ```{r echo = FALSE, message = FALSE} 
 select(week8_tbl, q1:q6) %>%
   DT::datatable()
 
-ggplot(week8_tbl, aes(x = q1_q6_mean, y = q7_q10_mean)) +
+ggplot(week8_tbl, aes(x = q1_q6_mean, y = q8_q10_mean)) +
   geom_smooth(method = "lm", color = "purple", se = TRUE) +
   geom_point()
 ```
@@ -47,7 +48,7 @@ ggplot(week8_tbl, aes(x = q1_q6_mean, y = q7_q10_mean)) +
 # **Analysis**
 The results of a correlation test can aide in the interpretation of those results. 
 ```{r, echo = FALSE, results='markup'} 
-meanCor <- cor.test(x = week8_tbl$q1_q6_mean, y = week8_tbl$q7_q10_mean)
+meanCor <- cor.test(x = week8_tbl$q1_q6_mean, y = week8_tbl$q8_q10_mean)
 meanCor
 ```
 I observed a correlation of `r meanCor$estimate`, which is not statistically significant. This suggests no relationship between these variables.
@@ -55,6 +56,6 @@ I observed a correlation of `r meanCor$estimate`, which is not statistically sig
 # **Data Export**
 Finally, an export of the necessary data was created for the interactive shiny app found above. 
 ```{r, echo=TRUE, results='hide'} 
-(week8_df <- select(week8_tbl, all_of(c("gender", "q1_q6_mean", "q7_q10_mean", "timeStart")))) %>%
+(week8_df <- select(week8_tbl, all_of(c("gender", "q1_q6_mean", "q8_q10_mean", "timeStart")))) %>%
 saveRDS(file = "../shiny/shiny_week8/week8.rds")
 ```
