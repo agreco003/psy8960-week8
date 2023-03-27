@@ -5,9 +5,9 @@ account: agreco003
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 8609850
-bundleId: 6979424
+bundleId: 6983180
 url: https://agreco003.shinyapps.io/shiny_week8/
-when: 1679259068.82176
-lastSyncTime: 1679259068.82177
+when: 1679330953.46818
+lastSyncTime: 1679330953.46819
 asMultiple: FALSE
 asStatic: FALSE

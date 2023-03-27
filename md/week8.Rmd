@@ -32,6 +32,7 @@ week8_tbl <- read_csv(file ="../data/week3.csv") %>%
          timeStart = ymd_hms(timeStart),
          q1_q6_mean = rowMeans(across(q1:q6)),
          q8_q10_mean = rowMeans(across(q8:q10)))
+        #could also create an inclusion/exclusion flag to make filtering easier #after_aug1_2017 = timeEnd >= "2017-08-01 00:00:00"
 ```
 
 # **Visualization**
@@ -56,6 +57,6 @@ I observed a correlation of `r meanCor$estimate`, which is not statistically sig
 # **Data Export**
 Finally, an export of the necessary data was created for the interactive shiny app found above. 
 ```{r, echo=TRUE, results='hide'} 
-(week8_df <- select(week8_tbl, all_of(c("gender", "q1_q6_mean", "q8_q10_mean", "timeStart")))) %>%
+(week8_df <- select(week8_tbl, gender, q1_q6_mean, q8_q10_mean, "timeStart")) %>%
 saveRDS(file = "../shiny/shiny_week8/week8.rds")
 ```
